@@ -1,0 +1,104 @@
+<html>
+<head>
+    <link rel="stylesheet" href="inframe.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="roi.js"></script>
+</head>
+<body>
+<div class="content">
+<div class="inside">
+    <div style="text-align: center">
+        <h1>Health Research Opportunity Index (ROI)</h1>
+        <a href="#about">About</a> |
+        <a href="#citation">Citation</a> |
+        <a href="#visualization">Visualization</a> |
+        <a href="#history">Release history</a> |
+        <a href="#media">Media report</a>
+    </div>
+
+    <h3 id="about">About</h3>
+    <p>
+        Since our work on Health Research Opportunity Index (ROI) was published on Nature Biotechnology in August 2015, we have received overwhelming feedback, including many requests for data from both academia and industry. Therefore we created this site to illustrate Health Research Opportunity Indices (ROI) during 2000-2011 using an interactive visualization tool. We are still working on improving our model and will post future updates on this site. Please stay tuned! (Last update: 10/11/2015)
+    </p>
+    <h3 id="citation">Citation</h3>
+    <p> <a href="http://www.nature.com/nbt/journal/v33/n8/full/nbt.3276.html">Health ROI as a measure of misalignment of biomedical needs and resources</a>. Yao L, Li Y, Ghosh S, Evans JA, Rzhetsky A. <em> Nat Biotechnol</em>. 2015 Aug 7; 33(8):807-11.</p>
+    <h3 id="visualization">Visualization</h3>
+    <h4>Interactions</h4>
+    <ol>
+        <li>You can click on the bubble to view the data of a specific condition.</li>
+        <li>You can also select a year from the colored legend on the left to view the ROI for a specific year.</li>
+    </ol>
+    <style>
+        .inline{
+            float: left;
+        }
+        div[name='detail']{
+            height: 520px;
+            font-size: 12px;
+        }
+        th, td {
+            text-align: center;
+            padding: 2px;
+        }
+    </style>
+    <!--theth-->
+    <div id="pos">
+        <h4> The Temporal Trend of ROI for Under-studied Health Conditions during 2000-2011</h4>
+        <table>
+            <tr>
+                <td>
+                    <div class="inline" name="bar"></div>
+                </td>
+                <td>
+                    <div class="inline" name="circle"></div>
+                </td>
+                <td>
+                    <div class="inline" name="canvas"></div>
+                </td>
+                <td>
+                    <div name="detail"></div>
+                </td>
+            </tr>
+        </table>
+        <h5>* The year code is shown on the left. The area of each circle corresponds to 10 to the power of ROI value of the corresponding disease at a give year. This figure thus highlights those understudied, high-opportunity conditions in the period of 2000–2011 and their ROI changing patterns.</h5>
+    </div>
+    <div id="nag">
+        <h4>The Temporal Trend of ROI for Over-studied Health Conditions during 2000-2011</h4>
+        <table>
+            <tr>
+                <td>
+                    <div class="inline" name="bar"></div>
+                </td>
+                <td>
+                    <div class="inline" name="circle"></div>
+                </td>
+                <td>
+                    <div class="inline" name="canvas"></div>
+                </td>
+                <td>
+                    <div name="detail"></div>
+                </td>
+            </tr>
+        </table>
+        <h5>** The year code is shown on the left. The area of each circle corresponds to 10 to the power of NEGATIVE ROI value of the corresponding disease at a given year. This figure highlights those disproportionately overstudied conditions in the period of 2000-2011 and their ROI changing patterns</h5>
+    </div>
+
+    <h3 id="history">Release history</h3>
+    <ol>
+        <li>Version 1.0 2015-10-11 * Initial release</li>
+    </ol>
+
+    <h3 id="media">Media report</h3>
+    <ol>
+        <li><a href="http://www.eurekalert.org/pub_releases/2015-09/uocm-dac091515.php">http://www.eurekalert.org/pub_releases/2015-09/uocm-dac091515.php</a></li>
+        <li><a href="http://phys.org/news/2015-09-data-driven-approach-allocation-biomedical-resources.html">http://phys.org/news/2015-09-data-driven-approach-allocation-biomedical-resources.html</a></li>
+        <li><a href="http://sciencelife.uchospitals.edu/2015/09/15/improving-the-allocation-of-biomedical-research-resources-with-big-data/">http://sciencelife.uchospitals.edu/2015/09/15/improving-the-allocation-of-biomedical-research-resources-with-big-data/</a></li>
+        <li><a href="http://www.sciencenewsline.com/news/2015091608040020.html">http://www.sciencenewsline.com/news/2015091608040020.html</a></li>
+        <li><a href="http://www.newswise.com/articles/view/640511/?sc=rsmn">http://www.newswise.com/articles/view/640511/?sc=rsmn</a></li>
+        <li><a href="http://www.sciencedaily.com/releases/2015/09/150928160115.htm">http://www.sciencedaily.com/releases/2015/09/150928160115.htm</a></li>
+        <li><a href="http://www.transparentmedicalcare.org/blog/resource-allocation-for-biomedical-research-out-of-whack/">http://www.transparentmedicalcare.org/blog/resource-allocation-for-biomedical-research-out-of-whack/</a></li>
+    </ol>
+</div>
+</div>
+</body>
+</html>
