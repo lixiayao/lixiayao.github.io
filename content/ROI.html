@@ -2,7 +2,23 @@
 <head>
     <link rel="stylesheet" href="inframe.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!--CSS styles-->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+
     <script src="roi.js"></script>
+    <style>
+        .table th,
+        .table td {
+            padding: 0px!important;
+            line-height: 0;
+            text-align: center;
+            border: 1px solid #dddddd;
+        }
+    </style>
 </head>
 <body>
 <div class="content">
@@ -28,20 +44,6 @@
         <li>You can click on the bubble to view the data of a specific condition.</li>
         <li>You can also select a year from the colored legend on the left to view the ROI for a specific year.</li>
     </ol>
-    <style>
-        .inline{
-            float: left;
-        }
-        div[name='detail']{
-            height: 520px;
-            font-size: 12px;
-        }
-        th, td {
-            text-align: center;
-            padding: 2px;
-        }
-    </style>
-    <!--theth-->
     <div id="pos">
         <h4> The Temporal Trend of ROI for Under-studied Health Conditions during 2000-2011</h4>
         <table>
