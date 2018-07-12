@@ -262,7 +262,10 @@ function create_info_table(root, info){
     var rows = tbody.selectAll("tr")
         .data(info)
         .enter()
-        .append("tr");
+        .append("tr")
+        .style('border-left', function(d){
+            return color(d.year) + " 4px solid"
+        });
 
     // create a cell in each row for each column
     var cells = rows.selectAll("td")
@@ -320,13 +323,13 @@ function drawbubbles(root){
             scale[root] = d.r / d.base;
             return d.r
         })
-        .attr('fill', 'white')
+        .attr('fill', 'white');
 
     //bond other bubble to base bubbles
     node.each(function(base){
         //data no less than 1
         tmp = newdict[base.code].val;
-        yeardata = []
+        yeardata = [];
         for (i in tmp){
             if ((tmp[i].weight > filter && root=="pos")||(tmp[i].weight < -filter && root=="nag"))
                 yeardata.push(tmp[i])
@@ -345,32 +348,6 @@ function drawbubbles(root){
                 return radius["nag"](-d.weight)*scale[root];
             })
     });
-
-    // //the hover label
-    // var label = node.append("g")
-    //     .attr("class","label")
-    //     .attr("transform","translate(0,-40)").attr("visibility", "hidden")
-    //     .each(function(d){
-    //         bg = d3.select(this).append("rect")
-    //             .attr("fill","white")
-    //
-    //         text = d3.select(this).append("text")
-    //             .attr("x", 0)
-    //             .attr("y", 0)
-    //             .style("text-anchor", "middle")
-    //             .text(function(d){
-    //                 return d.name
-    //             })
-    //         bbox = text.node().getBBox();
-    //
-    //         bg.attr("width", bbox.width+20)
-    //             .attr("height", bbox.height*2)
-    //             .attr("x", -bbox.width/2-10)
-    //             .attr("y", -bbox.height)
-    //     })
-    //
-    // //put text above box
-    // label.select('text').moveToFront();
 
     // interaction
     node.on("click", function(d){

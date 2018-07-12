@@ -12,4 +12,13 @@ jQuery(function($) {
             location.href = this.href;
         });
     }
+
+    if (/mobile/i.test(navigator.userAgent)){
+        $('.desktop').hide();
+        $('.mobile').show();
+    }
+    else{
+        $('.desktop').show();
+        $('.mobile').hide();
+    }
 });
