@@ -40,10 +40,35 @@ d3.json('newsfiles/ROI/ROI_data/conf', function(conf){
             newdict[data[i].code] = data[i]
         }
         bubbledata = data;
+        //initial fuzzy search
+        var fuzzyhound = new FuzzySearch({
+            output_limit: 6,
+            keys:"label",
+            source: $.map(data, function(k){return {
+                label: k.name,
+                value: k.code
+            }})
+        });
+
+        $('.disease_search').autocomplete({
+            source: function (request, response) {
+                response(fuzzyhound.search(request.term));
+            },
+            delay: 0,
+            minLength: 2,
+            focus: function( event, ui ) {
+                $( '.disease_search' ).val( ui.item.label );
+                return false;
+            },
+            select: function( event, ui ) {
+                select_node( ui.item.value);
+                return false;
+            }
+        });
         draw('pos');
-        draw('nag')
+        draw('nag');
     })
-})
+});
 
 function draw(root){
     drawbubbles(root);
@@ -133,6 +158,126 @@ var scale = {'pos':1, 'nag':1},
         .size([width, height])
         .value(function(d){return d.base * d.base;});
 
+function clearSelection(){
+    $( '.disease_search' ).val('');
+    d3.selectAll(".base").attr("opacity",1);
+    d3.selectAll(".label").remove()
+}
+function select_node(code){
+    clearSelection();
+    var name = '';
+    d3.selectAll(".base").attr("opacity",function(d){
+        if (d.code == code){
+            name = d.name;
+            var label = d3.select(this.parentNode).append("g")
+                .attr("class","label");
+
+            var link = label.append('line')
+                .attr('x1', 0)
+                .attr('y1', 0)
+                .attr('stroke','red')
+                .attr('stroke-width', 2);
+
+            var bg = label.append("rect")
+                .attr("fill","white");
+
+            var text = label.append("text")
+                .attr("x", 0)
+                .attr("y", 0)
+                .style("text-anchor", "middle")
+                .text(name);
+            var bbox = text.node().getBBox();
+
+            bg.attr("width", bbox.width+20)
+                .attr("height", bbox.height*2)
+                .attr("x", -bbox.width/2-10)
+                .attr("y", -bbox.height);
+
+            //take one of the four options
+            var trans = d3.transform(d3.select(this).attr('transform')).translate;
+            var offy = -40,
+                offx = 0;
+            if (trans[0] - bbox.width/2 < 0){
+                offx = bbox.width/2 - trans[0];
+            }
+            else if (trans[0] + bbox.width/2 > width){
+                offx = width - (trans[0] + bbox.width/2);
+            }
+
+            link.attr('x2', -offx)
+                .attr('y2', -offy);
+
+            label.attr('transform','translate('+[trans[0]+offx, trans[1]+offy]+')');
+
+            return 1;
+        }
+        else
+            return 0.4
+    });
+    $( '.disease_search' ).val( name );
+
+    //query demands and show detail info
+    d3.selectAll("div[name='detail']").selectAll("div").remove();
+
+    d3.json("newsfiles/ROI/ROI_data/code/"+code, function(info){
+        //separate info to postive and negative
+        var pos = $.map(info, function(d){
+            if (d.hoi_prevalence > 0)
+                return d;
+            else
+                return null
+        });
+        if (pos.length > 0){
+            create_info_table('pos', pos)
+        }
+        var nag = $.map(info, function(d){
+            if (d.hoi_prevalence < 0)
+                return d;
+            else
+                return null
+        });
+        if (nag.length > 0){
+            create_info_table('nag', nag)
+        }
+    })
+}
+
+function create_info_table(root, info){
+    d3.select("#"+root+" div[name='detail']").append("div").html(name);
+    var table = d3.select("#"+root+" div[name='detail']").append("div")
+        .append("table")
+        .attr("class","table table-hover");
+
+    var thead = table.append("thead"),
+        tbody = table.append("tbody");
+
+    thead.append("tr")
+        .selectAll("th")
+        .data(columns)
+        .enter()
+        .append("th")
+        .text(function(d) { return d; });
+
+    // create a row for each object in the data
+    var rows = tbody.selectAll("tr")
+        .data(info)
+        .enter()
+        .append("tr");
+
+    // create a cell in each row for each column
+    var cells = rows.selectAll("td")
+        .data(function(row) {
+            return columns.map(function(column) {
+                return {column: column, value: row[column]};
+            });
+        })
+        .enter()
+        .append("td")
+        .html(function(d) {
+            return d3.round(d.value, 2);
+        });
+}
+
 function drawbubbles(root){
     var canvas = d3.select("#"+root+" div[name='canvas']").append("svg").attr("width", width).attr("height", height);
     // create a new dataset for collison detection
@@ -199,90 +344,39 @@ function drawbubbles(root){
                 else (root == "nag")
                 return radius["nag"](-d.weight)*scale[root];
             })
-    })
+    });
 
-    //the hover label
-    var label = node.append("g")
-        .attr("class","label")
-        .attr("transform","translate(0,-40)").attr("visibility", "hidden")
-        .each(function(d){
-            bg = d3.select(this).append("rect")
-                .attr("fill","white")
-
-            text = d3.select(this).append("text")
-                .attr("x", 0)
-                .attr("y", 0)
-                .style("text-anchor", "middle")
-                .text(function(d){
-                    return d.name
-                })
-            bbox = text.node().getBBox();
-
-            bg.attr("width", bbox.width+20)
-                .attr("height", bbox.height*2)
-                .attr("x", -bbox.width/2-10)
-                .attr("y", -bbox.height)
-        })
-
-    //put text above box
-    label.select('text').moveToFront();
+    // //the hover label
+    // var label = node.append("g")
+    //     .attr("class","label")
+    //     .attr("transform","translate(0,-40)").attr("visibility", "hidden")
+    //     .each(function(d){
+    //         bg = d3.select(this).append("rect")
+    //             .attr("fill","white")
+    //
+    //         text = d3.select(this).append("text")
+    //             .attr("x", 0)
+    //             .attr("y", 0)
+    //             .style("text-anchor", "middle")
+    //             .text(function(d){
+    //                 return d.name
+    //             })
+    //         bbox = text.node().getBBox();
+    //
+    //         bg.attr("width", bbox.width+20)
+    //             .attr("height", bbox.height*2)
+    //             .attr("x", -bbox.width/2-10)
+    //             .attr("y", -bbox.height)
+    //     })
+    //
+    // //put text above box
+    // label.select('text').moveToFront();
 
     // interaction
     node.on("click", function(d){
         //fade all other bubbles
-        d3.selectAll(".base").attr("opacity",function(d2){
-            if (d.code == d2.code)
-                return 1
-            else
-                return 0.4
-        })
-        d3.select(this).moveToFront();
-        d3.select(this).selectAll(".label").attr("visibility", "visible")
-
-        //query demands and show detail info
-        d3.selectAll("div[name='detail']").selectAll("div").remove()
-        d3.json("newsfiles/ROI/ROI_data/code/"+d.code, function(info){
-            d3.select("#"+root+" div[name='detail']").append("div").html(d.name)
-
-            var table = d3.select("#"+root+" div[name='detail']").append("div")
-                .append("table")
-                .attr("class","table table-hover");
-
-            var thead = table.append("thead"),
-                tbody = table.append("tbody");
-
-            thead.append("tr")
-                .selectAll("th")
-                .data(columns)
-                .enter()
-                .append("th")
-                .text(function(d) { return d; });
-
-            // create a row for each object in the data
-            var rows = tbody.selectAll("tr")
-                .data(info)
-                .enter()
-                .append("tr");
-
-            // create a cell in each row for each column
-            var cells = rows.selectAll("td")
-                .data(function(row) {
-                    return columns.map(function(column) {
-                        return {column: column, value: row[column]};
-                    });
-                })
-                .enter()
-                .append("td")
-                .html(function(d) {
-                    return d3.round(d.value, 2);
-                });
-        })
-
+        select_node(d.code)
     })
-        .on("mouseout", function(){
-            d3.selectAll(".base").transition().attr("opacity",1)
-            d3.select(this).selectAll(".label").attr("visibility", "hidden")
-        })
 }
 
 d3.selection.prototype.moveToFront = function() {

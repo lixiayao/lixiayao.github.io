@@ -1,119 +1,156 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it">
+<!DOCTYPE html>
+<html>
 <head>
-	<!--<script src="utilities/home_gallery.js"></script>-->
-	<script src="js/expand_collapse.js"></script>
-	<title>The Yao Lab at Mayo Clinic</title>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta http-equiv="content-language" content="it" />
-	<meta name="keywords" content="biomedical informatics research, medical informatics research, clinical informatics research, health informatic research, patient-centered care research, data mining research, text mining, natural language processing, Mayo Clinic, Minnesota health informatics research, health informatics lab, health informatics mayo, health informatics mayo clinic, mayo clinic the Yao lab, artificial intelligence in patient-centered care" />
-	<meta name="description" content="Lixia Yao, PhD, is an Assistant Professor in the Department of Health Sciences Research at Mayo Clinic. She received her Ph.D. degree in Biomedical Informatics from Columbia University in 2010. She then worked as a Principal Investigator at GlaxoSmithKline Pharmaceuticals and the University of North Carolina at Charlotte as an assistant professor prior to Mayo. Her research focuses on mining, integrating, and transforming unstructured, incomplete, and noisy data (i.e., electronic health records and claims databases, literature, patents, and social media) into meaningful biomedical knowledge and informatics applications. By leading a team of data scientists and healthcare professionals at the Health Informatics Lab, and by collaborating with world-class scholars and clinicians, she has published in several high-profile journals including Nature Biotechnology and Genome Research. She is also the recipient of Career Development Award in Biomedical Informatics from the National Library of Medicine for 2016-2019." />
-	<meta name="robots" content="all" />
-	<meta name="revisit-after" content="7 days" />
+<title>Yao Lab</title>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!-- Bootstrap -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+    <meta name="keywords" content="biomedical informatics research, medical informatics research, clinical informatics research, health informatic research, patient-centered care research, data mining research, text mining, natural language processing, Mayo Clinic, Minnesota health informatics research, health informatics lab, health informatics mayo, health informatics mayo clinic, mayo clinic the Yao lab, artificial intelligence in patient-centered care" />
+    <meta name="description" content="Lixia Yao, PhD, is an Assistant Professor in the Department of Health Sciences Research at Mayo Clinic. She received her Ph.D. degree in Biomedical Informatics from Columbia University in 2010. She then worked as a Principal Investigator at GlaxoSmithKline Pharmaceuticals and the University of North Carolina at Charlotte as an assistant professor prior to Mayo. Her research focuses on mining, integrating, and transforming unstructured, incomplete, and noisy data (i.e., electronic health records and claims databases, literature, patents, and social media) into meaningful biomedical knowledge and informatics applications. By leading a team of data scientists and healthcare professionals at the Health Informatics Lab, and by collaborating with world-class scholars and clinicians, she has published in several high-profile journals including Nature Biotechnology and Genome Research. She is also the recipient of Career Development Award in Biomedical Informatics from the National Library of Medicine for 2016-2019." />
+    <meta name="robots" content="all" />
+    <meta name="revisit-after" content="7 days" />
 
-	<!-- JQuery -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
-	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>-->
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>-->
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="js/FuzzySearch.min.js"></script>
 
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<!-- Bootstrap core CSS -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Material Design Bootstrap -->
-	<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">-->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+<![endif]-->
+    <link href="css/yaolab.css", rel="stylesheet">
+    <script src="js/site.js"></script>
 
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-
-	<script>
+    <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-53279809-1',   + 'auto');
         ga('send', 'pageview');
-	</script>
+    </script>
 
 </head>
-
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <span class="navbar-brand">Yao Lab @ Mayo Clinic</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="page.html?p=people.html">People</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="page.html?p=research.html">Research</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="page.html?p=publication.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Publication
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="page.html?p=publication.html#Journal">Journal</a>
+                        <a class="dropdown-item" href="page.html?p=publication.html#conference">Conference</a>
+                        <a class="dropdown-item" href="page.html?p=publication.html#Short">Short Papers</a>
+                        <a class="dropdown-item" href="page.html?p=publication.html#Posters">Posters</a>
+                        <a class="dropdown-item" href="page.html?p=publication.html#book">Book Editor</a>
+                        <a class="dropdown-item" href="page.html?p=publication.html#other">Other publications</a>
+                        <a class="dropdown-item" href="page.html?p=publication.html#Presentations">Presentations</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="page.html?p=resources.html">Resource</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="page.html?p=news.html">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="page.html?p=miscellanea.html">Miscellanea</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navigation -->
+<div id="wall_wrap">
+    <div class="card">
+        <a href="https://www.mayoclinic.org/">
+            <img class="img-fluid" src="images/Mayo.jpg"/>
+            <div class="myoverlay">Mayo Clinic</div>
+        </a>
+    </div>
+    <div class="card">
+        <a href="page.html">
+            <img class="img-fluid" src="newsfiles/AMIA_2015_Joint_Summits_Present_files/2015-AMIA-Joint-Summits.jpg"/>
+            <div class="myoverlay">Boshu won best paper award at 2015 ICDM DMBIH Workshop</div>
+        </a>
+    </div>
+    <div class="card">
+        <a href="page.html?p=health-ROI-story">
+            <img class="img-fluid" src="newsfiles/ROI/Yao-Novel-health-ROI.jpg"/>
+            <div class="myoverlay">Dr. Yao develops novel health ROI to optimize biomedical resource allocations</div>
+        </a>
+    </div>
+</div>
 
-<div id="content_wrap">
-	<div id="header">
-		<div id="imageBg">
-			<div class="inside">
-				<h1><a href="index.html" title="The Yao Lab at Mayo Clinic - Home" id="hlinks">The Yao Lab at Mayo Clinic</a></h1>
-			</div>
-		</div>
-	</div>
-	<div id="menu">
-		<ul>
-			<li><a href="index.html" title="The Yao Lab at Mayo Clinic - Home" class="active">Home</a></li>
-			<li><a href="page.html?p=people" title="Principle Investigators, Current Memembers, and Alumni">People</a></li>
-			<li><a href="page.html?p=research" title="Research Scope, Projects and Publications">Research</a></li>
-			<li><a href="page.html?p=publication" title="Publications">Publications</a></li>
-			<li><a href="page.html?p=resource" title="Project resources">Resources</a></li>
-			<li><a href="page.html?p=news" title="News">News</a></li>
-			<li><a href="page.html?p=miscellanea" title="Blogs, Conferences, Journals, Related Links and Collaborations">Miscellanea</a></li>
-			<li><a href="page.html?p=about">About</a></li>
-		</ul>
-		<form action="http://www.google.com/search" method="get" target="_google" id="tm-utility-search" onsubmit="var searchbox = document.getElementById('tm-utility-search-input'); if (searchbox.value == 'Search this site' || searchbox.value == '') { searchbox.value=''; searchbox.focus(); return false; }">
-			<input type="hidden" name="hl" value="en"/>
-			<input type="hidden" name="domains" value="lixiayao.github.io/"/>
-			<input type="hidden" name="sitesearch" value="lixiayao.github.io/"/>
-			<input type="text" name="q" class="searchbox" value="Search this site" size="25" maxlength="100" title="Search this site" onclick="if (this.value == 'Search this site') { this.value = ''; }" id="tm-utility-search-input"/>
-			<div class="mybtn"><input type="submit" value="" /></div>
-		</form>
-	</div>
-	<div id="content">
-		<div class="inside">
-			<div id="gallery_wrap">
-				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-					<div class="carousel-inner" style="height: calc(100vh - 300px);">
-						<div class="carousel-item active view overlay">
-							<a href="https://www.mayoclinic.org/">
-								<img class="img-fluid" src="images/Mayo.jpg"/>
-								<div class="myoverlay">Mayo Clinic</div>
-							</a>
-						</div>
-						<div class="carousel-item">
-							<a href="page.html?p=BRu-ICDM2015">
-								<img class="img-fluid" src="newsfiles/BRu_ICDM/2015BestPaper.jpg"/>
-								<div class="myoverlay">Boshu won best paper award at 2015 ICDM DMBIH Workshop</div>
-							</a>
-						</div>
-						<div class="carousel-item">
-							<a href="page.html?p=health-ROI-story">
-								<img class="img-fluid" src="newsfiles/ROI/Yao-Novel-health-ROI.jpg"/>
-								<div class="myoverlay">Dr. Yao develops novel health ROI to optimize biomedical resource allocations</div>
-							</a>
-						</div>
-					</div>
-					<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<div id="copyright">
-		Last modified on:
-		<script>
-            document.write(document.lastModified);
-		</script>
-	</div>
+<div id="gallery_wrap">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" style="height: calc(100vh - 40px);">
+            <div class="carousel-item active view overlay">
+                <a href="https://www.mayoclinic.org/">
+                    <img class="img-fluid" src="images/Mayo.jpg"/>
+                    <div class="myoverlay">Mayo Clinic</div>
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="page.html">
+                    <img class="img-fluid" src="newsfiles/AMIA_2015_Joint_Summits_Present_files/2015-AMIA-Joint-Summits.jpg"/>
+                    <div class="myoverlay">Boshu won best paper award at 2015 ICDM DMBIH Workshop</div>
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a href="page.html?p=health-ROI-story">
+                    <img class="img-fluid" src="newsfiles/ROI/Yao-Novel-health-ROI.jpg"/>
+                    <div class="myoverlay">Dr. Yao develops novel health ROI to optimize biomedical resource allocations</div>
+                </a>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+<!-- End Page Content -->
+<div id="copyright">
+    Last modified on:
+    <script>
+        document.write(document.lastModified);
+    </script>
 </div>
 </body>
 </html>

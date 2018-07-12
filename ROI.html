@@ -7,7 +7,7 @@
     <!--<![endif]&ndash;&gt;-->
 
     <!--&lt;!&ndash;CSS styles&ndash;&gt;-->
-    <script src="newsfiles/ROI/roi.js"></script>
+    <!--<script src="newsfiles/ROI/roi.js"></script>-->
     <!--<style>-->
         <!--.table th,-->
         <!--.table td {-->
@@ -55,7 +55,7 @@
         <li>You can click on the bubble to view the data of a specific condition.</li>
         <li>You can also select a year from the colored legend on the left to view the ROI for a specific year.</li>
     </ol>
-    <div id="pos">
+    <div class="root" id="pos">
         <h4> The Temporal Trend of ROI for Under-studied Health Conditions during 2000-2011</h4>
         <table>
             <tr>
@@ -66,6 +66,8 @@
                     <div class="inline" name="circle"></div>
                 </td>
                 <td>
+                    <p>Search Diseases: <input class="disease_search"><button onclick="clearSelection()">x</button></p>
+
                     <div class="inline" name="canvas"></div>
                 </td>
                 <td>
@@ -75,7 +77,7 @@
         </table>
         <p>* The year code is shown on the left. The area of each circle corresponds to 10 to the power of ROI value of the corresponding disease at a give year. This figure thus highlights those understudied, high-opportunity conditions in the period of 2000–2011 and their ROI changing patterns.</p>
     </div>
-    <div id="nag">
+    <div class="root" id="nag">
         <h4>The Temporal Trend of ROI for Over-studied Health Conditions during 2000-2011</h4>
         <table>
             <tr>
@@ -86,6 +88,8 @@
                     <div class="inline" name="circle"></div>
                 </td>
                 <td>
+                    <p>Search Diseases: <input class="disease_search"><button onclick="clearSelection()">x</button></p>
+
                     <div class="inline" name="canvas"></div>
                 </td>
                 <td>
@@ -95,7 +99,11 @@
         </table>
         <p>** The year code is shown on the left. The area of each circle corresponds to 10 to the power of NEGATIVE ROI value of the corresponding disease at a given year. This figure highlights those disproportionately overstudied conditions in the period of 2000-2011 and their ROI changing patterns</p>
     </div>
-
+    <style>
+        .disease_search{
+            width: 350px;
+        }
+    </style>
     <h3 id="history">Release history</h3>
     <ol>
         <li>Version 1.0 2015-10-11 * Initial release</li>
