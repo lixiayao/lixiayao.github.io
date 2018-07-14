@@ -7,67 +7,78 @@ var columns = [
     'year',
     'prevalence',
     'burden',
+    'hoi_prevalence',
+    'hoi_burden',
     'publication',
     'trial',
     'patent'
 ]
 
-var years,
-    color,
+var years = Array.from({length: 17}, (x, i) => i+2000),
     radius,
     bubbledata,
-    confdata,
     newdict = {};
 
-var filter = 2;
+var filter = 2,
+    filter_high = Math.pow(10, 4),
+    filter_low = Math.pow(10, -2);
 
 //separate color for years
 //continuous color for years
 // var color = d3.scale.ordinal().range(["#9e0142","#d53e4f","#f46d43","#fdae61","#fee08b","#ffffbf","#e6f598","#abdda4","#66c2a5","#3288bd","#5e4fa2"]);
 var color = d3.scale.ordinal().range([
     'rgb(110, 64, 170)','rgb(133, 62, 177)','rgb(157, 61, 179)','rgb(182, 60, 177)','rgb(205, 61, 170)','rgb(226, 64, 159)','rgb(243, 69, 144)','rgb(255, 77, 127)','rgb(255, 88, 109)','rgb(255, 101, 90)','rgb(255, 116, 74)','rgb(255, 134, 60)','rgb(249, 152, 50)','rgb(235, 172, 46)','rgb(219, 191, 48)','rgb(203, 209, 56)','rgb(188, 226, 71)'
-])
+]).domain(years);
 
-d3.json('newsfiles/ROI/ROI_data/conf', function(conf){
-    confdata = conf;
-    years = conf.year;
-    color.domain(conf.year);
-    radius = {"pos":d3.scale.linear().domain([0, conf.max]).range([0, 50]),
-        "nag":d3.scale.linear().domain([0, -conf.min]).range([0, 50])}
-    d3.json('newsfiles/ROI/ROI_data/json', function(data){
-        // create code look up table
-        for (i in data){
-            newdict[data[i].code] = data[i]
+d3.tsv('newsfiles/ROI/ROI_data/roi_results.txt', function(data){
+    // log back
+    data = $.map(data, function(d){
+        d.hoi_prevalence = Math.pow(10, d.hoi_prevalence);
+        d.hoi_burden = Math.pow(10, d.hoi_burden);
+        d.weight = d.hoi_burden;
+        return d
+    });
+
+    radius = {"pos":d3.scale.pow().exponent(.06).domain([1, d3.max(data, function(d){return d.weight})]).range([1, 50]),
+        "nag":d3.scale.pow().exponent(.06).domain([1, 1/d3.min(data, function(d){return d.weight})]).range([1, 50])}
+
+    //nest
+    bubbledata = $.map(d3.nest().key(function(d){return d.phewas}).entries(data), function(d){
+        newdict[d.key] = d.values;
+        return {
+            code: d.key,
+            name: d.values[0].name,
+            val: d.values
         }
-        bubbledata = data;
-        //initial fuzzy search
-        var fuzzyhound = new FuzzySearch({
-            output_limit: 6,
-            keys:"label",
-            source: $.map(data, function(k){return {
-                label: k.name,
-                value: k.code
-            }})
-        });
+    });
 
-        $('.disease_search').autocomplete({
-            source: function (request, response) {
-                response(fuzzyhound.search(request.term));
-            },
-            delay: 0,
-            minLength: 2,
-            focus: function( event, ui ) {
-                $( '.disease_search' ).val( ui.item.label );
-                return false;
-            },
-            select: function( event, ui ) {
-                select_node( ui.item.value);
-                return false;
-            }
-        });
-        draw('pos');
-        draw('nag');
-    })
+    //initial fuzzy search
+    var fuzzyhound = new FuzzySearch({
+        output_limit: 6,
+        keys:"label",
+        source: $.map(bubbledata, function(k){return {
+            label: k.name,
+            value: k.code
+        }})
+    });
+
+    $('.disease_search').autocomplete({
+        source: function (request, response) {
+            response(fuzzyhound.search(request.term));
+        },
+        delay: 0,
+        minLength: 2,
+        focus: function( event, ui ) {
+            $( '.disease_search' ).val( ui.item.label );
+            return false;
+        },
+        select: function( event, ui ) {
+            select_node( ui.item.value);
+            return false;
+        }
+    });
+    draw('pos');
+    draw('nag');
 });
 
 function draw(root){
@@ -109,6 +120,7 @@ function drawYearMeter(root){
         .attr('fill', function(d){return color(d);});
 
     bar.append('text')
+        .style('font-size', '12px')
         .style("text-anchor", "middle")
         .attr("transform", "translate("+[bar_width/2, step/2+4]+")")
         .text(function(d){return d})
@@ -116,9 +128,9 @@ function drawYearMeter(root){
 
 function drawCircleLegend(root){
     if (root == "pos")
-        var circle_data = [20, 15, 10, 5, 1];
+        circle_data = [1.e18, 1.e14, 1.e10, 1.e6, 1.e2];
     else
-        var circle_data = [-15, -10, -10, -5, -1];
+        circle_data = [1.e-18, 1.e-14, 1.e-10, 1.e-6, 1.e-2];
 
     var circle = d3.select("#"+root+" div[name='circle']").append('svg').attr('width', circle_width).attr('height',height)
         .append('g')
@@ -129,20 +141,26 @@ function drawCircleLegend(root){
 
     circle.append("circle")
         .attr("cx", 0)
-        .attr("cy", 0)
+        .attr("cy", 10)
         .attr("r", function(d){
             if (root == "pos")
                 return radius[root](d)*scale[root];
             else
-                return radius[root](-d)*scale[root]
+                return radius[root](1/d)*scale[root]
         })
         .attr('stroke','black')
         .attr('fill', 'white')
         .attr('opacity', 0.5);
 
     circle.append("text")
+        .style('font-size', '10px')
         .style("text-anchor", "middle")
-        .text(function(d){return d})
+        .text(function(d){
+            if ((d > 1000 || d < 0.001) && d!=0)
+                return parseFloat(d).toExponential(2);
+            else
+                return d3.round(parseFloat(d), 4);
+        })
 }
 
 var scale = {'pos':1, 'nag':1},
@@ -163,8 +181,11 @@ function clearSelection(){
     d3.selectAll(".base").attr("opacity",1);
     d3.selectAll(".label").remove()
 }
+
 function select_node(code){
     clearSelection();
+
+    //create label on top of the graph
     var name = '';
     d3.selectAll(".base").attr("opacity",function(d){
         if (d.code == code){
@@ -219,33 +240,34 @@ function select_node(code){
     //query demands and show detail info
     d3.selectAll("div[name='detail']").selectAll("div").remove();
 
-    d3.json("newsfiles/ROI/ROI_data/code/"+code, function(info){
-        //separate info to postive and negative
-        var pos = $.map(info, function(d){
-            if (d.hoi_prevalence > 0)
-                return d;
-            else
-                return null
-        });
-        if (pos.length > 0){
-            create_info_table('pos', pos)
-        }
-        var nag = $.map(info, function(d){
-            if (d.hoi_prevalence < 0)
-                return d;
-            else
-                return null
-        });
-        if (nag.length > 0){
-            create_info_table('nag', nag)
-        }
-    })
+    var info = newdict[code];
+    //separate info to postive and negative
+    var pos = $.map(info, function(d){
+        if (d.hoi_prevalence > 1)
+            return d;
+        else
+            return null
+    });
+    if (pos.length > 0){
+        create_info_table('pos', pos)
+    }
+    var nag = $.map(info, function(d){
+        if (d.hoi_prevalence < 1)
+            return d;
+        else
+            return null
+    });
+    if (nag.length > 0){
+        create_info_table('nag', nag)
+    }
 }
 
 function create_info_table(root, info){
     d3.select("#"+root+" div[name='detail']").append("div").html(name);
     var table = d3.select("#"+root+" div[name='detail']").append("div")
         .append("table")
+        .style('font-size','14px')
+        .style('margin-left','30px')
         .attr("class","table table-hover");
 
     var thead = table.append("thead"),
@@ -277,7 +299,10 @@ function create_info_table(root, info){
         .enter()
         .append("td")
         .html(function(d) {
-            return d3.round(d.value, 2);
+            if (d.column != "year" && (d.value > 10000 || d.value<0.001) && d.value!=0)
+                return parseFloat(d.value).toExponential(2);
+            else
+                return d3.round(parseFloat(d.value), 4);
         });
 }
 
@@ -288,21 +313,23 @@ function drawbubbles(root){
     for (var i in bubbledata){
         if (root == 'pos'){
             var weight = d3.max(bubbledata[i].val, function(d){return d.weight});
-            if (weight > filter)
+            if (weight > filter_high){
                 newdata.push({
                     code: bubbledata[i].code,
                     name: bubbledata[i].name,
                     base: radius[root](weight)
                 })
+            }
         }
         else if (root = "nag"){
             var weight = d3.min(bubbledata[i].val, function(d){return d.weight});
-            if (weight < -filter)
+            if (weight < filter_low){
                 newdata.push({
                     code: bubbledata[i].code,
                     name: bubbledata[i].name,
-                    base: radius[root](-weight)
+                    base: radius[root](1.0/weight)
                 })
+            }
         }
     }
     var tmp = pack.nodes({children: newdata});
@@ -328,11 +355,12 @@ function drawbubbles(root){
     //bond other bubble to base bubbles
     node.each(function(base){
         //data no less than 1
-        tmp = newdict[base.code].val;
-        yeardata = [];
-        for (i in tmp){
-            if ((tmp[i].weight > filter && root=="pos")||(tmp[i].weight < -filter && root=="nag"))
-                yeardata.push(tmp[i])
+
+        if (root=='pos'){
+            var yeardata = $.map(newdict[base.code], function(d){if (d.weight>filter_high) return d; else return null})
+        }
+        else{
+            var yeardata = $.map(newdict[base.code], function(d){if (d.weight<filter_low) return d; else return null})
         }
         d3.select(this).selectAll('yearcircle').data(yeardata).enter()
             .append('circle')
@@ -345,7 +373,7 @@ function drawbubbles(root){
                 if (root == "pos")
                     return radius["pos"](d.weight)*scale[root];
                 else (root == "nag")
-                return radius["nag"](-d.weight)*scale[root];
+                return radius["nag"](1/d.weight)*scale[root];
             })
     });
 
@@ -355,9 +383,3 @@ function drawbubbles(root){
         select_node(d.code)
     })
 }
-
-d3.selection.prototype.moveToFront = function() {
-    return this.each(function(){
-        this.parentNode.appendChild(this);
-    });
-};
