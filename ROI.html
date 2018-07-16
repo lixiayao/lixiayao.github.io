@@ -1,16 +1,17 @@
-<script src="newsfiles/ROI/roi.js"></script>
+<!--<script src="newsfiles/ROI/roi.js"></script>-->
 <style>
-    .table th,
-    .table td {
-    padding: 0px!important;
-    text-align: center;
-    border: 1px solid #dddddd;
-}
-        .disease_search{
-            width: 350px;
-        }
+    #ROI_page .table th,
+    #ROI_page .table td {
+        padding: 0px!important;
+        text-align: center;
+        border: 1px solid #dddddd;
+    }
+    .disease_search{
+        width: 350px;
+    }
 </style>
-<div class="inside">
+
+<div class="inside" id="ROI_page">
     <div style="text-align: center">
         <h1>Health Research Opportunity Index (ROI)</h1>
         <a href="#about">About</a> |
@@ -35,43 +36,51 @@
     <div class="root" id="pos">
         <h4> The Temporal Trend of ROI for Under-studied Health Conditions during 2000-2016</h4>
         <p>Search Diseases: <input class="disease_search"><button onclick="clearSelection()">x</button></p>
-        <table>
-            <tr>
-                <td>
-                    <div class="inline" name="bar"></div>
-                </td>
-                <td>
-                    <div class="inline" name="circle"></div>
-                </td>
-                <td>
-                    <div class="inline" name="canvas"></div>
-                </td>
-                <td>
-                    <div name="detail"></div>
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-lg-7 col-md-12">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="inline" name="bar"></div>
+                        </td>
+                        <td>
+                            <div class="inline" name="circle"></div>
+                        </td>
+                        <td>
+                            <div class="inline" name="canvas"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div name="detail"></div>
+            </div>
+        </div>
         <p>* The year code is shown on the left. The area of each circle corresponds to 10 to the power of ROI value of the corresponding disease at a give year. This figure thus highlights those understudied, high-opportunity conditions in the period of 2000–2016 and their ROI changing patterns.</p>
     </div>
     <div class="root" id="nag">
         <h4>The Temporal Trend of ROI for Over-studied Health Conditions during 2000-2016</h4>
         <p>Search Diseases: <input class="disease_search"><button onclick="clearSelection()">x</button></p>
-        <table>
-            <tr>
-                <td>
-                    <div class="inline" name="bar"></div>
-                </td>
-                <td>
-                    <div class="inline" name="circle"></div>
-                </td>
-                <td>
-                    <div class="inline" name="canvas"></div>
-                </td>
-                <td>
-                    <div name="detail"></div>
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-lg-7 col-md-12">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="inline" name="bar"></div>
+                        </td>
+                        <td>
+                            <div class="inline" name="circle"></div>
+                        </td>
+                        <td>
+                            <div class="inline" name="canvas"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div name="detail"></div>
+            </div>
+        </div>
         <p>** The year code is shown on the left. The area of each circle corresponds to 10 to the power of NEGATIVE ROI value of the corresponding disease at a given year. This figure highlights those disproportionately overstudied conditions in the period of 2000-2016 and their ROI changing patterns</p>
     </div>
     <h3 id="history">Release history</h3>

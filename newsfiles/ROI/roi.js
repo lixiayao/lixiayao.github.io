@@ -1,7 +1,7 @@
 var width = 430,
     height = 400,
     bar_width = 50,
-    circle_width = 50;
+    circle_width = 100;
 
 var columns = [
     'year',
@@ -10,8 +10,8 @@ var columns = [
     // 'hoi_prevalence',
     // 'hoi_burden',
     'publication',
-    'trial',
-    'patent'
+    // 'trial',
+    // 'patent'
 ]
 
 var years = Array.from({length: 17}, (x, i) => i+2000),
@@ -39,7 +39,7 @@ d3.tsv('newsfiles/ROI/ROI_data/roi_results.txt', function(data){
         return d
     });
 
-    radius = {"pos":d3.scale.pow().exponent(.1).domain([1, d3.max(data, function(d){return d.weight})]).range([1, 50]),
+    radius = {"pos":d3.scale.pow().exponent(.06).domain([1, d3.max(data, function(d){return d.weight})]).range([1, 50]),
         "nag":d3.scale.pow().exponent(.06).domain([1, 1/d3.min(data, function(d){return d.weight})]).range([1, 50])}
 
     //nest
@@ -128,7 +128,7 @@ function drawYearMeter(root){
 
 function drawCircleLegend(root){
     if (root == "pos")
-        circle_data = [1.e18, 1.e14, 1.e10, 1.e6, 1.e2];
+        circle_data = [1.e20, 1.e16, 1.e12, 1.e8, 1.e4];
     else
         circle_data = [1.e-18, 1.e-14, 1.e-10, 1.e-6, 1.e-2];
 
@@ -167,11 +167,7 @@ var scale = {'pos':1, 'nag':1},
     pack = d3.layout.pack()
         .sort(function(a,b){
             //hybrid layout
-            var threshold = 2;
-            if (a.base > threshold && b.base > threshold)
-                return b.base-a.base;
-            else
-                return 1
+            return b.base-a.base;
         })
         .size([width, height])
         .value(function(d){return d.base * d.base;});

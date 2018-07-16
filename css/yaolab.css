@@ -8,6 +8,8 @@ html, body{
 }
 
 #content{
+    min-height: calc(100vh - 97px);
+    margin: auto;
     padding: 100px 15px;
 }
 
@@ -25,6 +27,9 @@ html, body{
     }
     h1, h2, h3, .navbar-brand{
         font-size: unset;
+    }
+    #content{
+        padding: 50px
     }
 }
 
@@ -101,13 +106,13 @@ img{
     text-align: center;
 }
 
-.carousel-item .myoverlay{
-    opacity:0;
-}
+/*.carousel-item .myoverlay{*/
+    /*opacity:0;*/
+/*}*/
 
-.carousel-item:hover .myoverlay {
-    opacity: 1;
-}
+/*.carousel-item:hover .myoverlay {*/
+    /*opacity: 1;*/
+/*}*/
 
 .bio_toggle{
     display: inline-block;
@@ -162,11 +167,6 @@ img{
     background-color: #9d94bb;
 }
 
-#content{
-    min-height: calc(100vh - 97px);
-    margin: auto;
-}
-
 .navbar{
     padding: 0rem 1rem;
 }
@@ -192,4 +192,12 @@ a.dropdown-item.nav-link:hover{
 
 #alu_table tr:nth-child(2){
     white-space: nowrap;
+}
+
+#gallery_wrap .img-fluid{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
