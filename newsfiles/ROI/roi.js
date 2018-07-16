@@ -7,8 +7,8 @@ var columns = [
     'year',
     'prevalence',
     'burden',
-    'hoi_prevalence',
-    'hoi_burden',
+    // 'hoi_prevalence',
+    // 'hoi_burden',
     'publication',
     'trial',
     'patent'
@@ -39,7 +39,7 @@ d3.tsv('newsfiles/ROI/ROI_data/roi_results.txt', function(data){
         return d
     });
 
-    radius = {"pos":d3.scale.pow().exponent(.06).domain([1, d3.max(data, function(d){return d.weight})]).range([1, 50]),
+    radius = {"pos":d3.scale.pow().exponent(.1).domain([1, d3.max(data, function(d){return d.weight})]).range([1, 50]),
         "nag":d3.scale.pow().exponent(.06).domain([1, 1/d3.min(data, function(d){return d.weight})]).range([1, 50])}
 
     //nest

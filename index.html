@@ -46,7 +46,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <span class="navbar-brand">Yao Lab @ Mayo Clinic</span>
+    <a href="index.html" class="navbar-brand">Yao Lab @ Mayo Clinic</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -63,10 +63,10 @@
                     <a class="nav-link dropdown-toggle" href="page.html?p=people.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         People
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="page.html?p=people.html#pm">Principle Investigator</a>
-                        <a class="dropdown-item" href="page.html?p=people.html#cm">Current Members</a>
-                        <a class="dropdown-item" href="page.html?p=people.html#alu">Alumni</a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item nav-link" href="page.html?p=people.html#pm">Principle Investigator</a>
+                        <a class="dropdown-item nav-link" href="page.html?p=people.html#cm">Current Members</a>
+                        <a class="dropdown-item nav-link" href="page.html?p=people.html#alu">Alumni</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -127,7 +127,7 @@
 
 <div id="gallery_wrap" class="desktop">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner" style="height: calc(100vh - 40px);">
+        <div class="carousel-inner" style="height: calc(100vh - 93px);">
             <div class="carousel-item active view overlay">
                 <a href="https://www.mayoclinic.org/">
                     <img class="img-fluid" src="images/Mayo.jpg"/>
@@ -158,11 +158,23 @@
     </div>
 </div>
 <!-- End Page Content -->
-<div id="copyright">
-    Last modified on:
-    <script>
-        document.write(document.lastModified);
-    </script>
+<div id="copyright" class="row">
+    <!--<div class="col-md-6" style="text-align: center">-->
+        <!--Last modified on:-->
+        <!--<script>-->
+            <!--document.write(document.lastModified);-->
+        <!--</script>-->
+    <!--</div>-->
+    <div class="col-md-6" style="margin: auto">
+        <b>Lixia Yao, PhD</b>
+        <span class="myblock">Assistant Professor |</span>
+        <span class="myblock">Department of Health Sciences Research |</span>
+        <span class="myblock">Mayo Clinic<br></span>
+        <span class="myblock">p: 507-293-7953 |</span>
+        <span class="myblock">f: 507-284-1516 |</span>
+        <span class="myblock">a: 200 First Street SW, Rochester, MN 55905 |</span>
+        <span class="myblock">e: Yao.dot.Lixia(At)Mayo.dot.edu<br></span>
+    </div>
 </div>
 </body>
 </html>

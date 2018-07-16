@@ -14,6 +14,8 @@ jQuery(function($) {
     }
 
     if (/mobile/i.test(navigator.userAgent)){
+        //change font
+        // $('#body').css('font-size', '20px');
         $('.desktop').hide();
         $('.mobile').show();
     }
