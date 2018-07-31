@@ -7,8 +7,8 @@ var columns = [
     'year',
     'prevalence',
     'burden',
-    // 'hoi_prevalence',
-    // 'hoi_burden',
+    // 'roi_prevalence',
+    // 'roi_burden',
     'publication',
     // 'trial',
     // 'patent'
@@ -33,9 +33,9 @@ var color = d3.scale.ordinal().range([
 d3.tsv('newsfiles/ROI/ROI_data/roi_results.txt', function(data){
     // log back
     data = $.map(data, function(d){
-        d.hoi_prevalence = Math.pow(10, d.hoi_prevalence);
-        d.hoi_burden = Math.pow(10, d.hoi_burden);
-        d.weight = d.hoi_burden;
+        d.roi_prevalence = Math.pow(10, d.roi_prevalence);
+        d.roi_burden = Math.pow(10, d.roi_burden);
+        d.weight = d.roi_burden;
         return d
     });
 
@@ -128,9 +128,9 @@ function drawYearMeter(root){
 
 function drawCircleLegend(root){
     if (root == "pos")
-        circle_data = [1.e20, 1.e16, 1.e12, 1.e8, 1.e4];
+        circle_data = [1.e22, 1.e18, 1.e14, 1.e10, 1.e6];
     else
-        circle_data = [1.e-18, 1.e-14, 1.e-10, 1.e-6, 1.e-2];
+        circle_data = [1.e-14, 1.e-12, 1.e-10, 1.e-8, 1.e-6];
 
     var circle = d3.select("#"+root+" div[name='circle']").append('svg').attr('width', circle_width).attr('height',height)
         .append('g')
@@ -239,7 +239,7 @@ function select_node(code){
     var info = newdict[code];
     //separate info to postive and negative
     var pos = $.map(info, function(d){
-        if (d.hoi_prevalence > 1)
+        if (d.roi_prevalence > 1)
             return d;
         else
             return null
@@ -248,7 +248,7 @@ function select_node(code){
         create_info_table('pos', pos)
     }
     var nag = $.map(info, function(d){
-        if (d.hoi_prevalence < 1)
+        if (d.roi_prevalence < 1)
             return d;
         else
             return null
